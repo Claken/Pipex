@@ -23,11 +23,18 @@ int
 {
 	int	fd1;
 	int	fd2;
+	int	fd3[2];
+	// fd pour le pipe :
+	// - fd[0] = pour read dans le pipe
+	// - fd[1] = pour write dans le pipe
+	// quand tu read, tu vides le fd3
 
 	if (ac != 5)
 		return (0);
 	fd1 = open(av[1], O_RDONLY);
 	fd2 = open(av[4], O_RDONLY);
+	if (pipe(fd3) == -1)
+		return (0);
 	printf("fd1 = %d\nfd2 = %d\n", fd1, fd2);
 	if (fd2 == -1)
 	{
