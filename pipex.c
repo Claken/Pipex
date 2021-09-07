@@ -20,7 +20,7 @@ int
 	return (0);
 }
 int
-	main(int ac, char **av)
+	main(int ac, char **av, char **envp)
 {
 	int		fd1;
 	int		fd2;
