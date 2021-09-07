@@ -6,7 +6,7 @@
 /*   By: sachouam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/08/09 15:38:23 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/07 11:55:50 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 #endif
