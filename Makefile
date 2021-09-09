@@ -9,7 +9,8 @@ CCL			= clang
 CCM			= gcc
 
 SRC			= pipex.c \
-			 pipex_utils.c \
+			pipex_utils.c \
+			pipex_functions.c \
 
 OBJ			= $(SRC:.c=.o)
 

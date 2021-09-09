@@ -3,66 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachouam <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/06 01:23:17 by sachouam          #+#    #+#             */
-/*   Updated: 2021/08/06 19:54:42 by sachouam         ###   ########.fr       */
+/*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
+/*   Updated: 2021/09/10 01:46:47 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int
+static void
+	ft_print_and_free_tab(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+	{
+		printf("%s\n", tab[i]);
+		free(tab[i]);
+	}
+	free(tab);
+}
+
+static void
 	ft_close_fdz(int *fd1, int *fd2)
 {
 	close(*fd1);
 	close(*fd2);
-	return (0);
 }
+
 int
 	main(int ac, char **av, char **envp)
 {
+	pid_t	procid;
+	pid_t	procid2;
+	int		pi[2];
 	int		fd1;
 	int		fd2;
-	int		fd3[2];
-	pid_t	procid;
-	// fd pour le pipe :
-	// - fd[0] = pour read dans le pipe
-	// - fd[1] = pour write dans le pipe
-	// quand tu read, tu vides le fd3
+	char	**cmd1;
+	char	**cmd2;
+	char	**path;
 
 	if (ac != 5)
 		return (0);
-	fd1 = open(av[1], O_RDONLY);
-	fd2 = open(av[4], O_RDONLY);
-	if (pipe(fd3) == -1)
-		return (ft_close_fdz(&fd1, &fd2));
+	path = ft_tab_of_paths(envp);
+	if (!path)
+		return (0);
+	cmd1 = ft_handling_command(av[2], path);
+	cmd2 = ft_handling_command(av[3], path);
+	if (!cmd1 || !cmd2)
+		return (0);
+	if (pipe(pi) == -1)
+		return (0);
 	procid = fork();
-	if (procid == -1)
-		return (ft_close_fdz(&fd1, &fd2));
+	if (procid < 0)
+		return (0);
 	if (procid == 0)
 	{
-		printf("child\n");
-		printf("fd1 = %d\nfd2 = %d\n", fd1, fd2);
+		fd1 = open(av[1], O_RDONLY);
+		close(pi[0]);
+		dup2(pi[1], 1);
+		if (fd1 != -1)
+		{
+			dup2(fd1, 0);
+			execve(cmd1[0], cmd1, envp);
+		}
+		perror("pipex");
+		exit(0);
 	}
 	else
 	{
-		wait(NULL);
-		printf("parent\n");
-	}
-	if (fd1 == -1)
-	{
-
-	}
-	if (fd2 == -1)
-	{
-		fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 00644);
-		if (fd2 == -1)
+		procid2 = fork();
+		if (procid2 < 0)
+			return (0);
+		if (procid2 == 0)
 		{
-			printf("fd2 %d\n", fd2);
-			return (ft_close_fdz(&fd1, &fd2));
+			fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 00644);
+			close(pi[1]);
+			dup2(pi[0], 0);
+			if (fd2 != -1)
+			{
+				dup2(fd2, 1);
+				execve(cmd2[0], cmd2, envp);
+			}
+			perror("pipex");
+			exit(0);
+		}
+		else
+		{
+			close(pi[0]);
+			close(pi[1]);
+			while (wait(NULL) != -1);
 		}
 	}
-	printf("nice\n\n");
-	return (ft_close_fdz(&fd1, &fd2));
+	ft_free_tab(cmd1);
+	ft_free_tab(cmd2);
+	ft_free_tab(path);
+	return (0);
 }
