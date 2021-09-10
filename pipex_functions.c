@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:59:42 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/10 02:00:14 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:20:07 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,13 @@ char
 		return (NULL);
 	cmdpath = ft_find_cmd(path, cmdtab[0]);
 	if (!cmdpath)
+	{
+		ft_free_tab(cmdtab);
 		return (NULL);
+	}
 	pathandflag = ft_create_pathandflag(cmdpath, cmdtab[1]);
+	free(cmdpath);
+	ft_free_tab(cmdtab);
 	if (!pathandflag)
 		return (NULL);
 	return (pathandflag);
