@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/10 15:12:42 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/16 19:51:31 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,39 @@ static void
 	free(tab);
 }
 
-static void
+void
 	ft_set_struc(t_prcs *process)
 {
 	process->fd = 0;
 	process->id = 0;
 	process->cmd = NULL;
+}
+
+void
+	ft_close_fdz(int pi[])
+{
+	close(pi[0]);
+	close(pi[1]);
+}
+
+void
+	ft_dup2_and_execve(int num, int pi[], char **envp, t_prcs *process)
+{
+	int numm;
+
+	if (num == 0)
+		numm = 1;
+	if (num == 1)
+		numm = 0;
+	close(pi[num]);
+	dup2(pi[numm], numm);
+	if (process->fd != -1)
+	{
+		dup2(process->fd, num);
+		execve(process->cmd[0], process->cmd, envp);
+	}
+	perror("pipex");
+	exit(0);
 }
 
 int
@@ -41,6 +68,7 @@ int
 	char	**path;
 	t_prcs	process1;
 	t_prcs	process2;
+	pid_t	prowait;
 
 	if (ac != 5)
 		return (0);
@@ -61,15 +89,7 @@ int
 	if (process1.id == 0)
 	{
 		process1.fd = open(av[1], O_RDONLY);
-		close(pi[0]);
-		dup2(pi[1], 1);
-		if (process1.fd != -1)
-		{
-			dup2(process1.fd, 0);
-			execve(process1.cmd[0], process1.cmd, envp);
-		}
-		perror("pipex");
-		exit(0);
+		ft_dup2_and_execve(0, pi, envp, &process1);
 	}
 	else
 	{
@@ -79,21 +99,14 @@ int
 		if (process2.id == 0)
 		{
 			process2.fd = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 00644);
-			close(pi[1]);
-			dup2(pi[0], 0);
-			if (process2.fd != -1)
-			{
-				dup2(process2.fd, 1);
-				execve(process2.cmd[0], process2.cmd, envp);
-			}
-			perror("pipex");
-			exit(0);
+			ft_dup2_and_execve(1, pi, envp, &process2);
 		}
 		else
 		{
-			close(pi[0]);
-			close(pi[1]);
-			while (wait(NULL) != -1);
+			ft_close_fdz(pi);
+			prowait = 0;
+			while (prowait != -1)
+				prowait = wait(NULL);
 		}
 	}
 	ft_free_tab(process1.cmd);
