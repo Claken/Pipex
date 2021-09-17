@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:59:42 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/10 14:20:07 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/17 13:16:42 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char
 	return (tab);
 }
 
-char
+static char
 	*ft_find_cmd(char **path, char *cmd)
 {
 	int		i;
@@ -45,7 +45,10 @@ char
 			return (cmdpath);
 		free(cmdpath);
 	}
-	return (NULL);
+	//cmdpath = ft_strdup(cmd);
+	//if (!cmdpath)
+		return (NULL);
+	//return (cmdpath);
 }
 
 static char

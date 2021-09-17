@@ -1,14 +1,13 @@
-total 68
--rwxrwxr-x 1 user42 user42 13712 sept. 10 13:29 a.out
--rw-rw-r-- 1 user42 user42     0 sept. 10 13:29 file1
--rw-rw-r-- 1 user42 user42     0 sept. 17 03:47 file2
-drwxrwxr-x 2 user42 user42  4096 sept. 10 15:10 libft
--rw-rw-r-- 1 user42 user42   582 sept. 10 13:29 Makefile
--rwxrwxr-x 1 user42 user42 14056 sept. 17 03:47 pipex
--rw-rw-r-- 1 user42 user42  3003 sept. 17 03:39 pipex.c
--rw-rw-r-- 1 user42 user42  2357 sept. 17 03:47 pipex_functions.c
--rw-rw-r-- 1 user42 user42  1456 sept. 16 19:00 pipex.h
--rw-rw-r-- 1 user42 user42  1307 sept. 10 14:00 pipex_utils.c
--rw-rw-r-- 1 user42 user42    54 sept. 10 13:29 README.md
--rwxrwxr-x 1 user42 user42  1585 sept. 10 13:29 script.sh
--rw-rw-r-- 1 user42 user42  1878 sept. 10 13:29 test.c
+a.out
+file1
+file2
+libft
+Makefile
+pipex
+pipex.c
+pipex_functions.c
+pipex.h
+pipex_utils.c
+README.md
+script.sh
+test.c
