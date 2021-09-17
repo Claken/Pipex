@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/16 19:51:31 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/17 03:23:20 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ static void
 }
 
 void
-	ft_set_struc(t_prcs *process)
+	ft_set_struc(t_prcs *process1, t_prcs *process2)
 {
-	process->fd = 0;
-	process->id = 0;
-	process->cmd = NULL;
+	process1->fd = 0;
+	process1->id = 0;
+	process1->cmd = NULL;
+	process2->fd = 0;
+	process2->id = 0;
+	process2->cmd = NULL;
 }
 
 void
@@ -42,9 +45,16 @@ void
 }
 
 void
+	ft_free_all_tabs(t_prcs *process1, t_prcs *process2)
+{
+	ft_free_tab(process1->cmd);
+	ft_free_tab(process2->cmd);
+}
+
+void
 	ft_dup2_and_execve(int num, int pi[], char **envp, t_prcs *process)
 {
-	int numm;
+	int	numm;
 
 	if (num == 0)
 		numm = 1;
@@ -61,30 +71,52 @@ void
 	exit(0);
 }
 
+void
+	ft_prowait(void)
+{
+	pid_t	prowait;
+
+	prowait = 0;
+	while (prowait != -1)
+		prowait = wait(NULL);
+}
+
+int
+	ft_make_a_fork(t_prcs *process)
+{
+	process->id = fork();
+	if (process->id < 0)
+		return (0);
+	return (1);
+}
+
+int
+	ft_set_variables(char **av, char **envp,
+		t_prcs *process1, t_prcs *process2)
+{
+	char	**path;
+
+	ft_set_struc(process1, process2);
+	path = ft_tab_of_paths(envp);
+	if (!path)
+		return (0);
+	process1->cmd = ft_handling_command(av[2], path);
+	process2->cmd = ft_handling_command(av[3], path);
+	ft_free_tab(path);
+	if (!process1->cmd || !process2->cmd)
+		return (0);
+	return (1);
+}
+
 int
 	main(int ac, char **av, char **envp)
 {
 	int		pi[2];
-	char	**path;
 	t_prcs	process1;
 	t_prcs	process2;
-	pid_t	prowait;
 
-	if (ac != 5)
-		return (0);
-	ft_set_struc(&process1);
-	ft_set_struc(&process2);
-	path = ft_tab_of_paths(envp);
-	if (!path)
-		return (0);
-	process1.cmd = ft_handling_command(av[2], path);
-	process2.cmd = ft_handling_command(av[3], path);
-	if (!process1.cmd || !process2.cmd)
-		return (0);
-	if (pipe(pi) == -1)
-		return (0);
-	process1.id = fork();
-	if (process1.id < 0)
+	if (ac != 5 || !ft_set_variables(av, envp, &process1, &process2)
+		|| pipe(pi) == -1 || !ft_make_a_fork(&process1))
 		return (0);
 	if (process1.id == 0)
 	{
@@ -93,8 +125,7 @@ int
 	}
 	else
 	{
-		process2.id = fork();
-		if (process2.id < 0)
+		if (!ft_make_a_fork(&process2))
 			return (0);
 		if (process2.id == 0)
 		{
@@ -104,13 +135,9 @@ int
 		else
 		{
 			ft_close_fdz(pi);
-			prowait = 0;
-			while (prowait != -1)
-				prowait = wait(NULL);
+			ft_prowait();
 		}
 	}
-	ft_free_tab(process1.cmd);
-	ft_free_tab(process2.cmd);
-	ft_free_tab(path);
+	ft_free_all_tabs(&process1, &process2);
 	return (0);
 }
