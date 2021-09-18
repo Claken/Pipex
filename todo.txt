@@ -1,0 +1,3 @@
+- Gérer le cas ou PATH n'existe pas
+- message erreur : command not found
+- Si c'est un chemin absolu ./machin ou /machin, tu lances direct la commande

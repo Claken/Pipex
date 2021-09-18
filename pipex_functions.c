@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 01:59:42 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/17 13:16:42 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/18 15:48:26 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ char
 	char	**tab;
 
 	i = 0;
-	while (!(ft_strnstr(envp[i], "PATH", 4)))
+	while (envp[i] && ft_strncmp(envp[i], "PATH", 4) != 0)
 		i++;
-	tab = ft_split(envp[i], "=:");
+	if (envp[i] == '\0')
+		return (NULL);
+	tab = ft_split(envp[i] + 5, ":");
 	if (tab == NULL)
 		return (NULL);
 	return (tab);
