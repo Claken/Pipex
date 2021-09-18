@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 00:39:51 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/10 01:46:51 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/18 16:39:53 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void
 {
 	int	i;
 
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
+	i = -1;
+	while (tab[++i])
+	{
+		free(tab[i]);
+	}
 	free(tab);
 }
 
@@ -37,4 +39,22 @@ char
 		return (NULL);
 	free(firstjoin);
 	return (secondjoin);
+}
+
+void
+	ft_set_struc(t_prcs *process1, t_prcs *process2)
+{
+	process1->fd = 0;
+	process1->id = 0;
+	process1->cmd = NULL;
+	process2->fd = 0;
+	process2->id = 0;
+	process2->cmd = NULL;
+}
+
+void
+	ft_free_all_tabs(t_prcs *process1, t_prcs *process2)
+{
+	ft_free_tab(process1->cmd);
+	ft_free_tab(process2->cmd);
 }

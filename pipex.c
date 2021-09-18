@@ -6,45 +6,11 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/18 15:35:01 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/18 16:48:50 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-/*
-static void
-	ft_print_and_free_tab(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-	{
-		printf("%s\n", tab[i]);
-		free(tab[i]);
-	}
-	free(tab);
-}
-
-void
-	ft_set_struc(t_prcs *process1, t_prcs *process2)
-{
-	process1->fd = 0;
-	process1->id = 0;
-	process1->cmd = NULL;
-	process2->fd = 0;
-	process2->id = 0;
-	process2->cmd = NULL;
-}
-
-void
-	ft_free_all_tabs(t_prcs *process1, t_prcs *process2)
-{
-	ft_free_tab(process1->cmd);
-	ft_free_tab(process2->cmd);
-}
-*/
 
 static int
 	ft_set_variables(char **av, char **envp,
@@ -52,12 +18,7 @@ static int
 {
 	char	**path;
 
-	process1->fd = 0;
-	process1->id = 0;
-	process1->cmd = NULL;
-	process2->fd = 0;
-	process2->id = 0;
-	process2->cmd = NULL;
+	ft_set_struc(process1, process2);
 	path = ft_tab_of_paths(envp);
 	if (!path)
 		return (0);
@@ -145,7 +106,6 @@ int
 			return (0);
 		ft_second_fork(&process2, av, envp, pi);
 	}
-	ft_free_tab(process1.cmd);
-	ft_free_tab(process2.cmd);
+	ft_free_all_tabs(&process1, &process2);
 	return (0);
 }
