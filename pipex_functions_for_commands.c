@@ -6,11 +6,24 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 16:38:52 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/18 16:49:59 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:48:45 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int
+	ft_check_if_path_exist(char **envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "PATH", 4) != 0)
+		i++;
+	if (envp[i] == '\0')
+		return (0);
+	return (1);
+}
 
 char
 	**ft_tab_of_paths(char **envp)
@@ -19,10 +32,8 @@ char
 	char	**tab;
 
 	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH", 4) != 0)
+	while (ft_strncmp(envp[i], "PATH", 4) != 0)
 		i++;
-	if (envp[i] == '\0')
-		return (NULL);
 	tab = ft_split(envp[i] + 5, ":");
 	if (tab == NULL)
 		return (NULL);
@@ -47,10 +58,10 @@ static char
 			return (cmdpath);
 		free(cmdpath);
 	}
-	//cmdpath = ft_strdup(cmd);
-	//if (!cmdpath)
+	cmdpath = ft_strdup(cmd);
+	if (!cmdpath)
 		return (NULL);
-	//return (cmdpath);
+	return (cmdpath);
 }
 
 static char
@@ -100,6 +111,22 @@ char
 	}
 	pathandflag = ft_create_pathandflag(cmdpath, cmdtab[1]);
 	free(cmdpath);
+	ft_free_tab(cmdtab);
+	if (!pathandflag)
+		return (NULL);
+	return (pathandflag);
+}
+
+char
+	**ft_handling_command_2(char *arg)
+{
+	char	**cmdtab;
+	char	**pathandflag;
+
+	cmdtab = ft_split(arg, " ");
+	if (!cmdtab)
+		return (NULL);
+	pathandflag = ft_create_pathandflag(cmdtab[0], cmdtab[1]);
 	ft_free_tab(cmdtab);
 	if (!pathandflag)
 		return (NULL);

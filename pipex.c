@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/18 16:48:50 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:18:40 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,23 @@ static int
 	char	**path;
 
 	ft_set_struc(process1, process2);
-	path = ft_tab_of_paths(envp);
-	if (!path)
-		return (0);
-	process1->cmd = ft_handling_command(av[2], path);
-	process2->cmd = ft_handling_command(av[3], path);
-	ft_free_tab(path);
+	if (ft_check_if_path_exist(envp))
+	{
+		path = ft_tab_of_paths(envp);
+		if (!path)
+			return (0);
+		process1->cmd = ft_handling_command(av[2], path);
+		process2->cmd = ft_handling_command(av[3], path);
+		ft_free_tab(path);
+	}
+	else
+	{
+		process1->cmd = ft_handling_command_2(av[2]);
+		process2->cmd = ft_handling_command_2(av[3]);
+	}
 	if (!process1->cmd || !process2->cmd)
 	{
-		if (process1->cmd)
-			ft_free_tab(process1->cmd);
-		if (process2->cmd)
-			ft_free_tab(process2->cmd);
+		ft_free_all_tabs(process1, process2);
 		return (0);
 	}
 	return (1);

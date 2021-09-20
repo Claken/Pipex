@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 00:39:51 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/18 16:39:53 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:18:12 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void
 void
 	ft_free_all_tabs(t_prcs *process1, t_prcs *process2)
 {
-	ft_free_tab(process1->cmd);
-	ft_free_tab(process2->cmd);
+	if (process1->cmd)
+		ft_free_tab(process1->cmd);
+	if (process2->cmd)
+		ft_free_tab(process2->cmd);
 }
