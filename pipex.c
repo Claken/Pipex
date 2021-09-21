@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 15:26:18 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 17:13:25 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void
 	dup2(cpy[0], numm);
 	dup2(cpy[1], num);
 	ft_errors_handling(envp, process);
+	ft_free_if_execve_fail(process, pi);
 	exit(0);
 }
 
@@ -110,6 +111,7 @@ int
 	{
 		process1.fd = open(av[1], O_RDONLY);
 		ft_dup2_and_execve(0, pi, envp, &process1);
+		//while (1);
 	}
 	else
 	{

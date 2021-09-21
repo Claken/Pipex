@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 15:36:30 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:34:48 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,15 @@ void
 	}
 	else
 		perror("pipex");
+}
+
+void
+	ft_free_if_execve_fail(t_prcs *process, int pi[])
+{
+	close(pi[0]);
+	close(pi[1]);
+	if (process->cmd)
+		ft_free_tab(process->cmd);
+	if (process->file)
+		free(process->file);
 }

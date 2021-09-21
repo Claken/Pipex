@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 12:26:59 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:14:32 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ char			**ft_handling_command(char *arg, char **path);
 char			**ft_handling_command_2(char *arg);
 
 void			ft_errors_handling(char **envp, t_prcs *process);
+void			ft_free_if_execve_fail(t_prcs *process, int pi[]);
 
 #endif
