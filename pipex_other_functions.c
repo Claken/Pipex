@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_other_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/08 00:39:51 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 12:27:30 by sachouam         ###   ########.fr       */
+/*   Created: 2021/09/21 15:33:50 by sachouam          #+#    #+#             */
+/*   Updated: 2021/09/21 15:33:55 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,17 @@ void
 		free(process1->file);
 	if (process2->file)
 		free(process2->file);
+}
+
+int
+	ft_check_if_path_exist(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "PATH", 4) != 0)
+		i++;
+	if (envp[i] == '\0')
+		return (0);
+	return (1);
 }

@@ -9,7 +9,7 @@ CCL			= clang
 CCM			= gcc
 
 SRC			= pipex.c \
-			pipex_utils.c \
+			pipex_other_functions.c \
 			pipex_functions_for_commands.c \
 			pipex_errors_handling.c \
 

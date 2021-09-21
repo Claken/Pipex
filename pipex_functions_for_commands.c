@@ -6,24 +6,11 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 16:38:52 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/20 13:48:45 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 15:16:55 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int
-	ft_check_if_path_exist(char **envp)
-{
-	int i;
-
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH", 4) != 0)
-		i++;
-	if (envp[i] == '\0')
-		return (0);
-	return (1);
-}
 
 char
 	**ft_tab_of_paths(char **envp)
