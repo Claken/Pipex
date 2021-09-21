@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 00:39:51 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/20 13:18:12 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:27:30 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,22 @@ char
 	return (secondjoin);
 }
 
-void
-	ft_set_struc(t_prcs *process1, t_prcs *process2)
+int
+	ft_set_struc(t_prcs *process1, t_prcs *process2, char **av)
 {
 	process1->fd = 0;
 	process1->id = 0;
 	process1->cmd = NULL;
+	process1->file = ft_strdup(av[1]);
+	if (!process1->file)
+		return (0);
 	process2->fd = 0;
 	process2->id = 0;
 	process2->cmd = NULL;
+	process2->file = ft_strdup(av[4]);
+	if (!process2->file)
+		return (0);
+	return (1);
 }
 
 void
@@ -59,4 +66,8 @@ void
 		ft_free_tab(process1->cmd);
 	if (process2->cmd)
 		ft_free_tab(process2->cmd);
+	if (process1->file)
+		free(process1->file);
+	if (process2->file)
+		free(process2->file);
 }

@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:13:07 by sachouam          #+#    #+#             */
-/*   Updated: 2021/07/28 12:14:22 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:29:24 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char
 	char	*str;
 	int		i;
 
+	if (!s1)
+		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!str)
 		return (NULL);

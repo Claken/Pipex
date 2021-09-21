@@ -11,6 +11,7 @@ CCM			= gcc
 SRC			= pipex.c \
 			pipex_utils.c \
 			pipex_functions_for_commands.c \
+			pipex_errors_handling.c \
 
 OBJ			= $(SRC:.c=.o)
 

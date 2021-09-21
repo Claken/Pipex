@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/20 18:34:14 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:28:11 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int
 {
 	char	**path;
 
-	ft_set_struc(process1, process2);
+	if (!ft_set_struc(process1, process2, av))
+		return (0);
 	if (ft_check_if_path_exist(envp))
 	{
 		path = ft_tab_of_paths(envp);
@@ -54,11 +55,14 @@ static void
 	ft_dup2_and_execve(int num, int pi[], char **envp, t_prcs *process)
 {
 	int	numm;
+	int	cpy[2];
 
 	if (num == 0)
 		numm = 1;
 	if (num == 1)
 		numm = 0;
+	cpy[0] = dup(numm);
+	cpy[1] = dup(num);
 	close(pi[num]);
 	dup2(pi[numm], numm);
 	if (process->fd != -1)
@@ -66,7 +70,9 @@ static void
 		dup2(process->fd, num);
 		execve(process->cmd[0], process->cmd, envp);
 	}
-	perror("pipex");
+	dup2(cpy[0], numm);
+	dup2(cpy[1], num);
+	ft_errors_handling(envp, process);
 	exit(0);
 }
 
