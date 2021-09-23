@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 16:38:52 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 15:16:55 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/23 15:57:51 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char
 	char	*cmdpath;
 	int		fd;
 
-	i = 0;
+	i = -1;
 	while (path[++i])
 	{
 		cmdpath = ft_strjoin_three(path[i], "/", cmd);

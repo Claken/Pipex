@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 17:13:25 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/23 16:03:40 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ static void
 	ft_dup2_and_execve(int num, int pi[], char **envp, t_prcs *process)
 {
 	int	numm;
-	int	cpy[2];
 
 	if (num == 0)
 		numm = 1;
 	if (num == 1)
 		numm = 0;
-	cpy[0] = dup(numm);
-	cpy[1] = dup(num);
 	close(pi[num]);
 	dup2(pi[numm], numm);
 	if (process->fd != -1)
@@ -70,8 +67,6 @@ static void
 		dup2(process->fd, num);
 		execve(process->cmd[0], process->cmd, envp);
 	}
-	dup2(cpy[0], numm);
-	dup2(cpy[1], num);
 	ft_errors_handling(envp, process);
 	ft_free_if_execve_fail(process, pi);
 	exit(0);
@@ -111,7 +106,6 @@ int
 	{
 		process1.fd = open(av[1], O_RDONLY);
 		ft_dup2_and_execve(0, pi, envp, &process1);
-		//while (1);
 	}
 	else
 	{
@@ -120,5 +114,6 @@ int
 		ft_second_fork(&process2, av, envp, pi);
 	}
 	ft_free_all_tabs(&process1, &process2);
+	while (1);
 	return (0);
 }
