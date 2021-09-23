@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/23 16:03:40 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/23 16:32:44 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ int
 		ft_second_fork(&process2, av, envp, pi);
 	}
 	ft_free_all_tabs(&process1, &process2);
-	while (1);
 	return (0);
 }
