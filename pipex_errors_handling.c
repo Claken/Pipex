@@ -6,14 +6,14 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/23 16:23:02 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/23 21:46:03 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 void
-	ft_errors_handling(char **envp, t_prcs *process)
+	ft_errors_handling(t_prcs *process)
 {
 	int	fd;
 

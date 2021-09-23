@@ -8,6 +8,8 @@ CCL			= clang
 
 CCM			= gcc
 
+CFLAGS		= -Wall -Wextra -Werror
+
 SRC			= pipex.c \
 			pipex_other_functions.c \
 			pipex_functions_for_commands.c \
@@ -20,13 +22,13 @@ DEP			= $(SRC:.c=.d)
 all:		$(NAME)
 
 %.o : %.c
-			$(CCL) -I . -o $@ -c $<
+			$(CCL) $(CFLAGS) -I . -o $@ -c $<
 
 $(NAME_LIBFT):
 			make -C $(LIBFT)
 
 $(NAME):	$(NAME_LIBFT) $(OBJ)
-			$(CCL) $(OBJ) $(NAME_LIBFT) -o $(NAME)
+			$(CCL) $(CFLAGS) $(OBJ) $(NAME_LIBFT) -o $(NAME)
 
 clean:
 			rm -rf $(OBJ)
