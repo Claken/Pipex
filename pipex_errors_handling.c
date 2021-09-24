@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/23 21:46:03 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/24 02:14:14 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,11 @@ void
 		ft_free_tab(process->cmd);
 	if (process->file)
 		free(process->file);
+}
+
+void
+	ft_fief_and_exit(t_prcs *process, int pi[])
+{
+	ft_free_if_execve_fail(process, pi);
+	exit(0);
 }

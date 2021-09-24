@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:33:50 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/21 16:28:45 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/24 00:51:55 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH", 4) != 0)
 		i++;
-	if (envp[i] == '\0')
+	if (envp[i] == NULL)
 		return (0);
 	return (1);
 }

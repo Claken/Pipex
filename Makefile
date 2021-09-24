@@ -43,6 +43,7 @@ re:			fclean all
 
 run:
 			make && make clean && clear
+			rm $(NAME_LIBFT)
 -include $(DEP)
 
 .PHONY: all clean fclean re
