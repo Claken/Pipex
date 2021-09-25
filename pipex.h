@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/24 01:41:24 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/25 18:54:30 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int				ft_check_if_path_exist(char **envp);
 char			**ft_handling_command(char *arg, char **path);
 char			**ft_handling_command_2(char *arg);
 
-void			ft_errors_handling(t_prcs *process);
-void			ft_free_if_execve_fail(t_prcs *process, int pi[]);
-void			ft_fief_and_exit(t_prcs *process, int pi[]);
+void			ft_errors_handling(t_prcs *process, int num);
+void			ft_free_if_execve_fail(t_prcs *process);
+void			ft_fief_and_exit(t_prcs *process);
 
 #endif

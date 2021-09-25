@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/24 01:49:38 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/25 18:54:08 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,21 @@ static void
 		dup2(process->fd, num);
 		execve(process->cmd[0], process->cmd, envp);
 	}
-	ft_errors_handling(process);
-	ft_free_if_execve_fail(process, pi);
+	ft_errors_handling(process, num);
+	ft_free_if_execve_fail(process);
 }
 
-static int
-	ft_second_fork(t_prcs *process2, char **av, char **envp, int pi[])
+static void
+	ft_second_fork(t_prcs *process2, t_prcs *process1, char **envp, int pi[])
 {
 	pid_t	prowait;
 
 	if (process2->id == 0)
 	{
-		process2->fd = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 00644);
+		process2->fd = open(process2->file,
+				O_CREAT | O_WRONLY | O_TRUNC, 00644);
 		ft_dup2_and_execve(1, pi, envp, process2);
-		return (1);
+		ft_fief_and_exit(process1);
 	}
 	else
 	{
@@ -90,7 +91,6 @@ static int
 		while (prowait != -1)
 			prowait = wait(NULL);
 	}
-	return (0);
 }
 
 int
@@ -105,16 +105,15 @@ int
 		return (0);
 	if (process1.id == 0)
 	{
-		process1.fd = open(av[1], O_RDONLY);
+		process1.fd = open(process1.file, O_RDONLY);
 		ft_dup2_and_execve(0, pi, envp, &process1);
-		ft_fief_and_exit(&process2, pi);
+		ft_fief_and_exit(&process2);
 	}
 	else
 	{
 		if (!ft_make_a_fork(&process2))
 			return (0);
-		if (ft_second_fork(&process2, av, envp, pi))
-			ft_fief_and_exit(&process1, pi);
+		ft_second_fork(&process2, &process1, envp, pi);
 	}
 	ft_free_all_tabs(&process1, &process2);
 	return (0);
