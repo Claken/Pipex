@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:33:50 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/24 00:51:55 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/25 20:05:46 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char
 	if (!firstjoin)
 		return (NULL);
 	secondjoin = ft_strjoin(firstjoin, s3);
+	free(firstjoin);
 	if (!secondjoin)
 		return (NULL);
-	free(firstjoin);
 	return (secondjoin);
 }
 
