@@ -14,6 +14,7 @@ SRC			= pipex.c \
 			pipex_other_functions.c \
 			pipex_functions_for_commands.c \
 			pipex_errors_handling.c \
+			pipex_handle_variables.c \
 
 OBJ			= $(SRC:.c=.o)
 

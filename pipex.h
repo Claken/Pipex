@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/25 18:54:30 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:17:11 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct s_prcs
 	char		**cmd;
 	char		*file;
 }				t_prcs;
+
+int				ft_set_variables(char **av, char **envp,
+					t_prcs *process1, t_prcs *process2);
 
 void			ft_free_tab(char **tab);
 char			*ft_strjoin_three(char const *s1,

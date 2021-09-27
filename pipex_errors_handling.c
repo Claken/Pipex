@@ -6,11 +6,21 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/25 18:54:49 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/27 20:17:41 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void
+	ft_if_num_is_one(t_prcs *process)
+{
+	if (ft_strncmp(process->file, "\0", 0) == 0)
+		ft_putstr_fd("pipex: no such file or directory: ", 2);
+	else
+		ft_putstr_fd("pipex: permission denied: ", 2);
+	ft_putendl_fd(process->file, 2);
+}
 
 void
 	ft_errors_handling(t_prcs *process, int num)
@@ -22,8 +32,7 @@ void
 	}
 	else if (num && access(process->file, W_OK) == -1)
 	{
-		ft_putstr_fd("pipex: permission denied: ", 2);
-		ft_putendl_fd(process->file, 2);
+		ft_if_num_is_one(process);
 	}
 	else if (!ft_strchr(process->cmd[0], '/'))
 	{

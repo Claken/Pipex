@@ -6,41 +6,11 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/25 18:54:08 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:12:55 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static int
-	ft_set_variables(char **av, char **envp,
-		t_prcs *process1, t_prcs *process2)
-{
-	char	**path;
-
-	if (!ft_set_struc(process1, process2, av))
-		return (0);
-	if (ft_check_if_path_exist(envp))
-	{
-		path = ft_tab_of_paths(envp);
-		if (!path)
-			return (0);
-		process1->cmd = ft_handling_command(av[2], path);
-		process2->cmd = ft_handling_command(av[3], path);
-		ft_free_tab(path);
-	}
-	else
-	{
-		process1->cmd = ft_handling_command_2(av[2]);
-		process2->cmd = ft_handling_command_2(av[3]);
-	}
-	if (!process1->cmd || !process2->cmd)
-	{
-		ft_free_all_tabs(process1, process2);
-		return (0);
-	}
-	return (1);
-}
 
 static int
 	ft_make_a_fork(t_prcs *process)
