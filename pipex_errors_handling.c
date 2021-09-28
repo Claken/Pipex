@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/27 20:17:41 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:25:41 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void
 	ft_if_num_is_one(t_prcs *process)
 {
-	if (ft_strncmp(process->file, "\0", 0) == 0)
+	if (ft_strncmp(process->file, "\0", 1) == 0)
 		ft_putstr_fd("pipex: no such file or directory: ", 2);
 	else
 		ft_putstr_fd("pipex: permission denied: ", 2);
