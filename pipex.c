@@ -6,11 +6,18 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/27 18:12:55 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/28 12:29:33 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static int
+	ft_how_to_use_the_function(void)
+{
+	ft_putendl_fd("usage: ./pipex file1 cmd1 cmd2 file2", 2);
+	return (0);
+}
 
 static int
 	ft_make_a_fork(t_prcs *process)
@@ -70,7 +77,9 @@ int
 	t_prcs	process1;
 	t_prcs	process2;
 
-	if (ac != 5 || !ft_set_variables(av, envp, &process1, &process2)
+	if (ac != 5)
+		return (ft_how_to_use_the_function());
+	if (!ft_set_variables(av, envp, &process1, &process2)
 		|| pipe(pi) == -1 || !ft_make_a_fork(&process1))
 		return (0);
 	if (process1.id == 0)
