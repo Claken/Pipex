@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/28 13:11:50 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:36:31 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,11 @@ void
 {
 	ft_free_if_execve_fail(process);
 	exit(0);
+}
+
+int
+	ft_free_all_and_go(t_prcs *prc1, t_prcs *prc2)
+{
+	ft_free_all_tabs(prc1, prc2);
+	return (0);
 }

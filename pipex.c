@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/28 12:29:33 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:39:51 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int
 		return (ft_how_to_use_the_function());
 	if (!ft_set_variables(av, envp, &process1, &process2)
 		|| pipe(pi) == -1 || !ft_make_a_fork(&process1))
-		return (0);
+		return (ft_free_all_and_go(&process1, &process2));
 	if (process1.id == 0)
 	{
 		process1.fd = open(process1.file, O_RDONLY);
@@ -91,7 +91,7 @@ int
 	else
 	{
 		if (!ft_make_a_fork(&process2))
-			return (0);
+			return (ft_free_all_and_go(&process1, &process2));
 		ft_second_fork(&process2, &process1, envp, pi);
 	}
 	ft_free_all_tabs(&process1, &process2);

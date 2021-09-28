@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/27 18:17:11 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/28 18:44:34 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ typedef struct s_prcs
 	char		*file;
 }				t_prcs;
 
+
+void			ft_errors_handling(t_prcs *process, int num);
+void			ft_free_if_execve_fail(t_prcs *process);
+void			ft_fief_and_exit(t_prcs *process);
+int				ft_free_all_and_go(t_prcs *prc1, t_prcs *prc2);
+
+char			**ft_tab_of_paths(char **envp);
+char			**ft_handling_command(char *arg, char **path);
+char			**ft_handling_command_2(char *arg);
+
 int				ft_set_variables(char **av, char **envp,
 					t_prcs *process1, t_prcs *process2);
 
@@ -40,13 +50,7 @@ char			*ft_strjoin_three(char const *s1,
 					char const *s2, char const *s3);
 int				ft_set_struc(t_prcs *process1, t_prcs *process2, char **av);
 void			ft_free_all_tabs(t_prcs *process1, t_prcs *process2);
-char			**ft_tab_of_paths(char **envp);
 int				ft_check_if_path_exist(char **envp);
-char			**ft_handling_command(char *arg, char **path);
-char			**ft_handling_command_2(char *arg);
 
-void			ft_errors_handling(t_prcs *process, int num);
-void			ft_free_if_execve_fail(t_prcs *process);
-void			ft_fief_and_exit(t_prcs *process);
 
 #endif
