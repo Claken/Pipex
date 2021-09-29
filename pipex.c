@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/29 15:48:49 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:01:10 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int
 	}
 	else
 	{
-		wait(NULL);
 		if (!ft_make_a_fork(&process2))
 			return (ft_free_all_and_go(&process1, &process2));
 		ft_second_fork(&process2, &process1, envp, pi);
