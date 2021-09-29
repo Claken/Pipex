@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/28 19:38:05 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:48:49 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void
 static void
 	ft_second_fork(t_prcs *process2, t_prcs *process1, char **envp, int pi[])
 {
+	pid_t	prowait;
+
 	if (process2->id == 0)
 	{
 		process2->fd = open(process2->file,
@@ -62,7 +64,9 @@ static void
 	{
 		close(pi[0]);
 		close(pi[1]);
-		wait(NULL);
+		prowait = 0;
+		while (prowait != -1)
+			prowait = wait(NULL);
 	}
 }
 

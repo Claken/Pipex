@@ -6,20 +6,19 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/28 18:36:31 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:20:22 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static void
-	ft_if_num_is_one(t_prcs *process)
+	ft_print_error_message(char *sentence, t_prcs *process)
 {
-	if (ft_strncmp(process->file, "\0", 1) == 0)
-		ft_putstr_fd("pipex: no such file or directory: ", 2);
-	else
-		ft_putstr_fd("pipex: permission denied: ", 2);
-	ft_putendl_fd(process->file, 2);
+	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd(process->file, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(sentence, 2);
 }
 
 void
@@ -27,25 +26,23 @@ void
 {
 	if (!num && access(process->file, F_OK) == -1)
 	{
-		ft_putstr_fd("pipex: no such file or directory: ", 2);
-		ft_putendl_fd(process->file, 2);
+		ft_print_error_message("No such file or directory", process);
 	}
 	else if (num && access(process->file, W_OK) == -1)
 	{
-		ft_if_num_is_one(process);
+		if (ft_strncmp(process->file, "\0", 1) == 0)
+			ft_print_error_message("No such file or directory", process);
+		else
+			ft_print_error_message("Permission denied", process);
 	}
 	else if (!ft_strchr(process->cmd[0], '/'))
 	{
-		ft_putstr_fd("pipex: command not found: ", 2);
-		ft_putendl_fd(process->cmd[0], 2);
+		ft_print_error_message("Command not found", process);
 	}
 	else if (ft_strchr(process->cmd[0], '/'))
 	{
 		if (access(process->cmd[0], F_OK) == -1)
-		{
-			ft_putstr_fd("pipex: no such file or directory: ", 2);
-			ft_putendl_fd(process->cmd[0], 2);
-		}
+			ft_print_error_message("No such file or directory", process);
 	}
 	else
 		perror("pipex");
