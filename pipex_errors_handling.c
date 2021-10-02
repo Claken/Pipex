@@ -6,44 +6,40 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/29 17:15:14 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:21:21 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static void
-	ft_print_error_message(char *sentence, char *var)
+	ft_print_error_message(t_prcs *process, int file, char *phrase)
 {
 	ft_putstr_fd("pipex: ", 2);
-	ft_putstr_fd(var, 2);
+	if (file)
+		ft_putstr_fd(process->file, 2);
+	else
+		ft_putstr_fd(process->cmd[0], 2);
 	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(sentence, 2);
+	ft_putendl_fd(phrase, 2);
+
 }
 
 void
-	ft_errors_handling(t_prcs *process, int num)
+	ft_errors_handling(t_prcs *process)
 {
-	if (!num && access(process->file, F_OK) == -1)
+	if (process->fd == -1)
 	{
-		ft_print_error_message("No such file or directory", process->file);
-	}
-	else if (num && access(process->file, W_OK) == -1)
-	{
-		if (ft_strncmp(process->file, "\0", 1) == 0)
-			ft_print_error_message("No such file or directory", process->file);
-		else
-			ft_print_error_message("Permission denied", process->file);
+		ft_print_error_message(process, 1, strerror(errno));
 	}
 	else if (!ft_strchr(process->cmd[0], '/'))
 	{
-		ft_print_error_message("Command not found", process->cmd[0]);
+		ft_print_error_message(process, 0, "Command not found");
 	}
 	else if (ft_strchr(process->cmd[0], '/'))
 	{
 		if (access(process->cmd[0], F_OK) == -1)
-			ft_print_error_message("No such file or directory",
-				process->cmd[0]);
+			ft_print_error_message(process, 0, "No such file or directory");
 	}
 	else
 		perror("pipex");
@@ -69,5 +65,5 @@ int
 	ft_free_all_and_go(t_prcs *prc1, t_prcs *prc2)
 {
 	ft_free_all_tabs(prc1, prc2);
-	return (0);
+	return (1);
 }

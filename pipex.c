@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/29 17:01:10 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:21:25 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void
 		dup2(process->fd, num);
 		execve(process->cmd[0], process->cmd, envp);
 	}
-	ft_errors_handling(process, num);
+	ft_errors_handling(process);
 	ft_free_if_execve_fail(process);
 }
 
