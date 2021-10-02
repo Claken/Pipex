@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:33:50 by sachouam          #+#    #+#             */
-/*   Updated: 2021/09/25 20:05:46 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/02 18:36:12 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ int
 {
 	process1->fd = 0;
 	process1->id = 0;
+	process1->statut = 0;
 	process1->cmd = NULL;
 	process1->file = ft_strdup(av[1]);
 	if (!process1->file)
 		return (0);
 	process2->fd = 0;
 	process2->id = 0;
+	process2->statut = 0;
 	process2->cmd = NULL;
 	process2->file = ft_strdup(av[4]);
 	if (!process2->file)

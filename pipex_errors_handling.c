@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/02 17:21:21 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/02 19:51:17 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void
 		ft_putstr_fd(process->cmd[0], 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(phrase, 2);
-
 }
 
 void
@@ -32,17 +31,18 @@ void
 	{
 		ft_print_error_message(process, 1, strerror(errno));
 	}
-	else if (!ft_strchr(process->cmd[0], '/'))
-	{
-		ft_print_error_message(process, 0, "Command not found");
-	}
-	else if (ft_strchr(process->cmd[0], '/'))
-	{
-		if (access(process->cmd[0], F_OK) == -1)
-			ft_print_error_message(process, 0, "No such file or directory");
-	}
 	else
-		perror("pipex");
+	{
+		if (!ft_strchr(process->cmd[0], '/'))
+		{
+			ft_print_error_message(process, 0, "Command not found");
+		}
+		else if (ft_strchr(process->cmd[0], '/'))
+		{
+			if (access(process->cmd[0], F_OK) == -1)
+				ft_print_error_message(process, 0, "No such file or directory");
+		}
+	}
 }
 
 void

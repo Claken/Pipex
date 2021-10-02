@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/02 17:21:23 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/02 19:29:35 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_prcs
 	int			fd;
 	char		**cmd;
 	char		*file;
-	int
+	int			statut;
 }				t_prcs;
 
 void			ft_errors_handling(t_prcs *process);
