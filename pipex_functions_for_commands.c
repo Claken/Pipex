@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 16:38:52 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/02 17:21:27 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/03 22:16:06 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,18 @@ static char
 	int		fd;
 
 	i = -1;
-	while (path[++i])
+	if (!ft_strchr(cmd, '/'))
 	{
-		cmdpath = ft_strjoin_three(path[i], "/", cmd);
-		if (!cmdpath)
-			return (NULL);
-		fd = access(cmdpath, F_OK);
-		if (fd == 0)
-			return (cmdpath);
-		free(cmdpath);
+		while (path[++i])
+		{
+			cmdpath = ft_strjoin_three(path[i], "/", cmd);
+			if (!cmdpath)
+				return (NULL);
+			fd = access(cmdpath, F_OK);
+			if (fd == 0)
+				return (cmdpath);
+			free(cmdpath);
+		}
 	}
 	cmdpath = ft_strdup(cmd);
 	if (!cmdpath)

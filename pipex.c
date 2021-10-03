@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/02 19:50:41 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/03 20:33:00 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void
 	if (process2->id == 0)
 	{
 		process2->fd = open(process2->file,
-				O_CREAT | O_WRONLY | O_TRUNC, 00644);
+				O_CREAT | O_WRONLY | O_TRUNC, 00664);
 		ft_dup2_and_execve(1, pi, envp, process2);
 		ft_fief_and_exit(process1);
 	}
