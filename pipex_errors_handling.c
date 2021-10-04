@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/02 19:51:17 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:44:27 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ static void
 }
 
 void
-	ft_errors_handling(t_prcs *process)
+	ft_errors_handling(t_prcs *process, char **envp)
 {
 	if (process->fd == -1)
 	{
 		ft_print_error_message(process, 1, strerror(errno));
+		process->statut = 1;
 	}
 	else
 	{
-		if (!ft_strchr(process->cmd[0], '/'))
+		if (!ft_strchr(process->cmd[0], '/') && ft_check_if_path_exist(envp))
 		{
 			ft_print_error_message(process, 0, "Command not found");
 		}
-		else if (ft_strchr(process->cmd[0], '/'))
+		else
 		{
 			if (access(process->cmd[0], F_OK) == -1)
 				ft_print_error_message(process, 0, "No such file or directory");
 		}
+		process->statut = 127;
 	}
 }
 
@@ -55,10 +57,10 @@ void
 }
 
 void
-	ft_fief_and_exit(t_prcs *process)
+	ft_fief_and_exit(t_prcs *process, t_prcs *retreive)
 {
 	ft_free_if_execve_fail(process);
-	exit(0);
+	exit(retreive->statut);
 }
 
 int

@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 01:05:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/02 19:29:35 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:36:53 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ typedef struct s_prcs
 	char		**cmd;
 	char		*file;
 	int			statut;
+	int			pid;
 }				t_prcs;
 
-void			ft_errors_handling(t_prcs *process);
+void			ft_errors_handling(t_prcs *process, char **envp);
 void			ft_free_if_execve_fail(t_prcs *process);
-void			ft_fief_and_exit(t_prcs *process);
+void			ft_fief_and_exit(t_prcs *process, t_prcs *retreive);
 int				ft_free_all_and_go(t_prcs *prc1, t_prcs *prc2);
 
 char			**ft_tab_of_paths(char **envp);
