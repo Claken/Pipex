@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:33:40 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/04 19:58:24 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:43:27 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int
 	ft_how_to_use_the_function(void)
 {
 	ft_putendl_fd("usage: ./pipex file1 cmd1 cmd2 file2", 2);
-	return (0);
+	return (1);
 }
 
 static int

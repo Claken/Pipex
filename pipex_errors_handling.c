@@ -6,7 +6,7 @@
 /*   By: sachouam <sachouam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 17:04:45 by sachouam          #+#    #+#             */
-/*   Updated: 2021/10/04 19:58:32 by sachouam         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:43:09 by sachouam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ void
 	else
 	{
 		if (!ft_strchr(process->cmd[0], '/') && ft_check_if_path_exist(envp))
-		{
-			ft_print_error_message(process, 0, "Command not found");
-		}
+			ft_print_error_message(process, 0, "command not found");
 		else
-		{
-			if (access(process->cmd[0], F_OK) == -1)
-				ft_print_error_message(process, 0, "No such file or directory");
-		}
-		process->statut = 127;
+			ft_print_error_message(process, 0, strerror(errno));
+		if (errno == 13)
+			process->statut = 126;
+		else
+			process->statut = 127;
 	}
 }
 
